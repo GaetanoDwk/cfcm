@@ -5,6 +5,7 @@
  * Dopo tali inclusioni vi è uno switch-case che permette di redirezionare il flusso di esecuzione dell'applicativo.
  * */
 require_once "modello/DbManager.php";
+require_once __DIR__ . '/lib/vendor/autoload.php';
 
 require_once("controllo/Controllo.php");
 require_once("controllo/ControllerAzienda.php");
@@ -19,7 +20,7 @@ require_once("Controllo/ControllerEvidence.php");
 require_once("Controllo/ControllerClone.php");
 require_once("Controllo/ControllerCloneSpecial.php");
 require_once("Controllo/ControllerLavorazione.php");
-require_once ("Controllo/ControllerMagazzino.php");
+require_once("Controllo/ControllerMagazzino.php");
 require_once("Controllo/ControllerTools.php");
 require_once("Controllo/ControllerDocx.php");
 
@@ -58,7 +59,7 @@ require_once("vista/HtmlHost.php");
 require_once("vista/HtmlEvidence.php");
 require_once("vista/HtmlTools.php");
 require_once("vista/HtmlUtente.php");
-//require_once("modello/smart_resize_image.php");
+require_once("vista/ClassPdf.php");
 
 
 $controller = "default";
@@ -394,6 +395,9 @@ else{
             break;
         // Reportistica PDF INDAGATO
         case "report_indagato":
+            $ControllerIndagato->invoke($comando);
+            break;
+        case "reportIndagatoFpdf":
             $ControllerIndagato->invoke($comando);
             break;
 

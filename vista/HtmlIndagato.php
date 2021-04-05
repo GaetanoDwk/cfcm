@@ -51,6 +51,7 @@ class HtmlIndagato
                     <th>SOGGETTO</th>
                     <th>TITOLO</th>
                     <th>PDF</th>
+                    <th>PDF_F</th>
                     <th>OPERAZIONI</th>
                 </tr>
             </thead>
@@ -72,6 +73,7 @@ class HtmlIndagato
                                 <form action='index.php' method='post' target='_blank'>
                                 <input type='hidden' id='ind_id' name='ind_id'  value=" . $row['ind_id'] .">
                                 <button type='submit' name='comando' value='report_indagato' title='Genera Report' style='border:none; padding:0px 0px;'><i class=\"fa fa-file-pdf-o fa-3x\" aria-hidden=\"true\"></i></button>
+                                <button type='submit' name='comando' value='reportIndagatoFpdf' title='Genera FPDF' style='border:none; padding:0px 0px;'><i class=\"fa fa-file-pdf-o fa-3x\" aria-hidden=\"true\"></i></button>
                                 </form>
                             </td>
                             <form action='index.php'  method='post'>
@@ -204,11 +206,41 @@ class HtmlIndagato
      * @param $ind_cognome
      * @param $ind_nome
      */
+    public function HTML_REPORT_header_mpdf($ind_cognome, $ind_nome){
+        $html = "<html>
+            <head>
+                <title>$ind_cognome $ind_nome</title>
+                <style type='text/css' media='print'>
+        body {background: white;}
+                        p {color: black;}
+                            table
+                            {
+                                width: 695px;
+                                border-collapse: collapse;
+                            }
+                            thead, tr, td, th, b
+                            {
+                                font-family: Arial;
+                            }
+                            pre{
+                            word-wrap: break-word;
+                            white-space: pre-line;
+                            width: 680px;
+                            }
+
+                </style>
+            </head>
+        <body>";
+        return $html;
+    }
+
+
+
     public function HTML_REPORT_header($ind_cognome, $ind_nome){
         echo"<html>
             <head>
                 <title>$ind_cognome $ind_nome</title>
-                <style>
+                <style type='text/css' media='print'>
         body {background: white;}
                         p {color: black;}
                             table
@@ -236,6 +268,22 @@ class HtmlIndagato
      * Visualizza l'intestazione della pagina del REPORT PDF di un indagato
      * @param $titolo
      */
+    public function HTML_REPORT_page_header_mpdf($titolo)
+    {
+        $html = "
+        <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr>
+                        <td width='160px'>Computer Forensics Case Manager</td>
+                        <td width='395px'><center><b style='font-size: 14pt'>$titolo</b></center></td>
+                        <td width='140px'><img src='images/logo.png' width='95px' align='left'></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>";
+        return $html;
+    }
+
     public function HTML_REPORT_page_header($titolo)
     {
         echo"
@@ -266,11 +314,10 @@ class HtmlIndagato
      * @param $pm_nome
      * @param $ctu
      */
-    public function HTML_REPORT_info($ca_num, $ca_tipo, $ind_titolo, $ind_cognome, $ind_nome, $cli_nome, $cli_citta, $pm_titolo, $pm_cognome, $pm_nome, $ctu)
+    public function HTML_REPORT_info_mpdf($ca_num, $ca_tipo, $ind_titolo, $ind_cognome, $ind_nome, $cli_nome, $cli_citta, $pm_titolo, $pm_cognome, $pm_nome, $ctu)
     {
-        echo"
+        $html = "
         <table border='1' cellpadding='7px'>
-
             <tbody>
                 <tr>
                     <td><strong>Numero del Caso:</strong><br>$ca_num</td>
@@ -279,15 +326,44 @@ class HtmlIndagato
                 <tr>
                     <td><strong>Cliente</strong><br>$cli_nome</td>
                     <td colspan='2'><strong>Contatto Cliente</strong><br>";
-                        if($_SESSION['cli_type'] == 'P'){echo"PM $pm_titolo $pm_cognome $pm_nome";}else{echo"$pm_titolo $pm_cognome $pm_nome";}
-        echo"       </td>
+                        if($_SESSION['cli_type'] == 'P'){$html .='PM'. $pm_titolo. " " . $pm_cognome . " " . $pm_nome;}else{$html .= $pm_titolo. " " .$pm_cognome. " " .$pm_nome;}
+                        "</td>
                 </tr>
                 <tr>
                     <td><strong>Luogo</strong><br>$cli_citta</td>";
-                    if($_SESSION['cli_type']=='P'){echo"<td><strong>C.T.U.</strong><br>$ctu</td>";};
-                    if($_SESSION['cli_type']=='T'){echo"<td><strong>Perito</strong><br>$ctu</td>";};
-                    if($_SESSION['cli_type']=='C'){echo"<td><strong>C.T.P.</strong><br>$ctu</td>";};
-                    echo"<td><strong>Tipo di Investigazione</strong><br>$ca_tipo</td>
+                    if($_SESSION['cli_type']=='P'){$html .= "<td><strong>C.T.U.</strong><br>$ctu</td>";};
+                    if($_SESSION['cli_type']=='T'){$html .= "<td><strong>Perito</strong><br>$ctu</td>";};
+                    if($_SESSION['cli_type']=='C'){$html .= "<td><strong>C.T.P.</strong><br>$ctu</td>";};
+                    $html .= "<td><strong>Tipo di Investigazione</strong><br>$ca_tipo</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>";
+                    return $html;
+    }
+
+
+    public function HTML_REPORT_info($ca_num, $ca_tipo, $ind_titolo, $ind_cognome, $ind_nome, $cli_nome, $cli_citta, $pm_titolo, $pm_cognome, $pm_nome, $ctu)
+    {
+        echo"
+        <table border='1' cellpadding='7px'>
+            <tbody>
+                <tr>
+                    <td><strong>Numero del Caso:</strong><br>$ca_num</td>
+                    <td colspan='2'><strong>$ind_titolo</strong><br>$ind_cognome $ind_nome</td>
+                </tr>
+                <tr>
+                    <td><strong>Cliente</strong><br>$cli_nome</td>
+                    <td colspan='2'><strong>Contatto Cliente</strong><br>";
+        if($_SESSION['cli_type'] == 'P'){echo"PM $pm_titolo $pm_cognome $pm_nome";}else{echo"$pm_titolo $pm_cognome $pm_nome";}
+        "</td>
+                </tr>
+                <tr>
+                    <td><strong>Luogo</strong><br>$cli_citta</td>";
+        if($_SESSION['cli_type']=='P'){echo"<td><strong>C.T.U.</strong><br>$ctu</td>";};
+        if($_SESSION['cli_type']=='T'){echo"<td><strong>Perito</strong><br>$ctu</td>";};
+        if($_SESSION['cli_type']=='C'){echo"<td><strong>C.T.P.</strong><br>$ctu</td>";};
+        echo"<td><strong>Tipo di Investigazione</strong><br>$ca_tipo</td>
                 </tr>
             </tbody>
         </table>
@@ -330,6 +406,34 @@ class HtmlIndagato
     }
 
 
+
+    public function HTML_REPORT_dettaglio_host_mpdf($ho_etichetta, $ho_modello, $ho_seriale, $ho_pwd, $ho_pwd_used, $ho_tipo)
+    {
+        $html = "
+        <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr style='background-color:#003c78; font-family: Arial; font-size:9pt;'>
+                        <td align='center'><font color='white'>ID Host</font></td>
+                        <td align='center'><font color='white'>Tipo</font></td>
+                        <td align='center'><font color='white'>Modello</font></td>
+                        <td align='center'><font color='white'>Nr. Seriale</font></td>
+                        <td align='center'><font color='white'>Password</font></td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td align='center'>" . $ho_etichetta . "</td>
+                        <td align='center'>" . $ho_tipo . "</td>
+                        <td align='center'>" . $ho_modello . "</td>
+                        <td align='center'>" . $ho_seriale . "</td>";
+        if($ho_pwd_used == 0){$html .= "<td align='center'>" . $ho_pwd . "</td>";}
+        if($ho_pwd_used == 1){$html .= "<td align='center'>" . $ho_pwd . "&nbsp;&nbsp;" . "<img src='font/icon/check.png' style='height: 12px;'> </td>";}
+        $html .= "       </tr>
+                    </tbody>
+            </table>
+            <br>";
+        return $html;
+    }
+
+
     /**
      * Visualizza i dettagli degli host special dell'indagato di cui si stà generando il report.
      * @param $ho_etichetta
@@ -357,6 +461,29 @@ class HtmlIndagato
                     </tbody>
             </table>
             <br>";
+    }
+
+    public function HTML_REPORT_dettaglio_host_special_mpdf($ho_etichetta, $ho_modello, $ho_seriale, $ho_tipo)
+    {
+        $html="
+        <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr bgcolor='#003c78' style='color: white; font-family: Arial; font-size:9pt;'>
+                        <td align='center'><font color='white'>ID Host</font></td>
+                        <td align='center'><font color='white'>Tipo</font></td>
+                        <td align='center'><font color='white'>Modello</font></td>
+                        <td align='center'><font color='white'>Nr. Seriale</font></td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td align='center'>" . $ho_etichetta . "</td>
+                        <td align='center'>" . $ho_tipo . "</td>
+                        <td align='center'>" . $ho_modello . "</td>
+                        <td align='center'>" . $ho_seriale . "</td>";
+        $html.="       </tr>
+                    </tbody>
+            </table>
+            <br>";
+        return $html;
     }
 
 
@@ -419,6 +546,59 @@ echo"
     }
 
 
+
+    public function HTML_REPORT_descrizione_host_mpdf($Info, $HostsSpecial, $ho_id, $ho_spec_id)
+    {
+        $html = "
+        <p align='center' style='font-family: Arial; font-size: 14pt;'><b>Descrizione Host</b></p>
+        <table border='1' cellpadding='7px'>
+        <tbody>
+            <tr style='background: #003c78; font-family: Arial; font-size:9pt;'>
+                <td align='center'><font color='white'>ID Host</font></td>
+                <td align='center'><font color='white'>Tipo</font></td>
+                <td align='center'><font color='white'>Modello</font></td>
+                <td align='center'><font color='white'>Seriale</font></td>
+            </tr>
+";
+        foreach($Info as $row){
+            if ($row['ho_id'] != $ho_id) {
+                $html .= "            <tr style='font-size: 8pt;'>
+                                <td align='center'>" . $row['ho_etichetta'] . "</td>
+                                <td align='center'>" . $row['ho_tipo'] . "</td>
+                                <td align='center'>" . $row['ho_modello'] . "</td>
+                                <td align='center'>" . $row['ho_seriale'] . "</td>
+                            </tr>";
+                $ho_id = $row['ho_id'];
+            }
+        }
+        // Imposto ho_id a null siccome nel DETTAGLIO HOST ci sarà un nuovo controllo sugli ho_id per non stampare duplicati
+        $ho_id = null;
+        if($HostsSpecial != 0) {
+
+            foreach ($HostsSpecial as $row) {
+                if ($row['ho_id'] != $ho_spec_id) {
+                    $html .= "
+                            <tr style='font-size: 8pt;'>
+                                <td align='center'>" . $row['ho_etichetta'] . "</td>
+                                <td align='center'>" . $row['ho_tipo'] . "</td>
+                                <td align='center'>" . $row['ho_modello'] . "</td>
+                                <td align='center'>" . $row['ho_seriale'] . "</td>
+                            </tr>
+                            ";
+                    $ho_spec_id = $row['ho_id'];
+                }
+            }
+        }
+        $html .="
+        </tbody>
+     </table>";
+
+        return $html;
+    }
+
+
+
+
     /**
      * Visualizza le descrizioni dei media (evidence), in tabella, appartenenti all'indagato di cui si sta generando il report.
      * @param $arr
@@ -474,6 +654,61 @@ echo"
     </tbody>
 </table>";
     }
+
+
+
+    public function HTML_REPORT_descrizione_media_mpdf($arr, $HostsSpecial)
+    {
+        $html = "
+        <p align='center' style='font-family: Arial; font-size:14pt;' xmlns=\"http://www.w3.org/1999/html\"><b>Descrizione Media</b></p>
+        <table border='1' cellpadding='7px'>
+    <thead>
+    </thead>
+    <tbody>
+        <tr style='background: #003c78; color:white; font-family: Arial; font-size:9pt;'>
+            <td align='center'><font color='white'>Host</font>td>
+            <td align='center'><font color='white'>Evidence</font></td>
+            <td align='center'><font color='white'>Modello</font></td>
+            <td align='center'><font color='white'>Dim.</font></td>
+            <td align='center'><font color='white'>Nr. Seriale</font></td>
+        </tr>";
+        $IdEvi = 0;
+        $ho_spec_id = 0;
+        foreach($arr as $row){
+            if($IdEvi != $row['evi_id']) {
+                $html .= "<tr style='font-size: 8pt;'>
+                                <td align='center'>" . $row['ho_etichetta'] . "</td>
+                                <td align='center'>" . $row['evi_etichetta'] . "</td>
+                                <td align='center'>" . $row['evi_modello'] . "</td>
+                                <td align='center'>" . $row['evi_dimensione'] . " " . $row['evi_kbmbgbtb'] . "</td>
+                                <td align='center'>" . $row['evi_seriale'] . "</td>
+                     </tr>";
+                $IdEvi = $row['evi_id'];
+            }
+        }
+
+        if($HostsSpecial != 0) {
+            foreach ($HostsSpecial as $row) {
+                if ($row['ho_id'] != $ho_spec_id) {
+                    $html .= "
+                            <tr style='font-size: 8pt;'>
+                                <td align='center'>" . $row['ho_etichetta'] . "</td>
+                                <td align='center'>" . $row['ho_etichetta'] . "</td>
+                                <td align='center'>" . $row['ho_modello'] . "</td>
+                                <td align='center'>" . $row['ho_dimensione'] . " " . $row['ho_kbmbgbtb'] . "</td>
+                                <td align='center'>" . $row['ho_seriale'] . "</td>
+                            </tr>
+                            ";
+                    $ho_spec_id = $row['ho_id'];
+                }
+            }
+        }
+        $html .="
+    </tbody>
+</table>";
+        return $html;
+    }
+
 
 
     /**
@@ -542,6 +777,64 @@ echo"
     }
 
 
+
+    public function HTML_REPORT_dettaglio_evidence_mpdf($ho_etichetta, $evi_etichetta, $evi_tipo, $evi_modello, $evi_seriale, $evi_pwd, $evi_pwd_used, $evi_dimensione, $evi_kbmbgbtb)
+    {
+        $html = "
+        <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr style='background-color: #003c78; font-family: Arial; font-size:9pt;'>
+                        <td align='center'><font color='white'>ID Host</font></td>
+                        <td align='center'><font color='white'>Evidence</font></td>
+                        <td align='center'><font color='white'>Tipo</font></td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td align='center'>" . $ho_etichetta . "</td>
+                        <td align='center'>" . $evi_etichetta . "</td>
+                        <td align='center'>" . $evi_tipo . "</td>
+                    </tr>
+
+
+                    <tr bgcolor='#003c78' style='color: white; font-family: Arial; font-size:9pt;'>
+                        <td align='center'><font color='white'>Modello</font></td>
+                        <td align='center'><font color='white'>Seriale</font></td>
+                        <td align='center'><font color='white'>Dimensione</font></td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td align='center'>" . $evi_modello . "</td>
+                        <td align='center'>" . $evi_seriale . "</td>
+                        <td align='center'>" . $evi_dimensione . $evi_kbmbgbtb . "</td>
+                    </tr>";
+
+        if($evi_tipo == 'SimCard'){
+            $html.="<tr bgcolor='#003c78' style='color: white; font-family: Arial; font-size:9pt;'>
+                                <td align='center'>Password</td>
+                             </tr>
+                             <tr style='font-size: 8pt;'>";
+            if($evi_pwd_used == 0){$html.="<td align='center'>" . $evi_pwd . "</td>";};
+            if($evi_pwd_used == 1){$html.="<td align='center'>" . $evi_pwd . "&nbsp;&nbsp;<img src='font/icon/check.png' style='height: 12px;'> </td>";}
+            $html.="</tr>";
+        }
+
+        $html.="</tbody>
+            </table>
+            <br>
+            <b style='font-family: Arial; font-size: 14pt;'>Note:</b>
+            <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr>
+                        <td height='70px'>
+
+                        </td>
+                    </tr>
+            </tbody>
+            </table><br>";
+        return $html;
+    }
+
+
+
+
     /**
      * Visualizza le informazioni relative al clone di un dato evidence, di un dato host di un dato indagato
      * @param $evi_etichetta
@@ -598,6 +891,55 @@ echo"
     }
 
 
+
+
+    public function HTML_REPORT_clone_mpdf($evi_etichetta, $clo_tipoacq, $clo_altro_tipo, $clo_stracq, $clo_md5, $clo_sha1, $clo_sha256)
+    {
+        $html="
+        <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr style='background-color: #003c78; font-family: Arial; font-size:9pt;'>
+                        <td align='center'><font color='white'>Evidence</font></td>
+                        <td align='center'><font color='white'>Tipo Acquisizione</font></td>
+                        <td align='center'><font color='white'>Strumento</font></td>
+
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td align='center'>" . $evi_etichetta . "</td>";
+        if($clo_tipoacq == "Altro")
+        {
+            $html.="<td align='center'>" . $clo_tipoacq . ": " . $clo_altro_tipo ."</td>";
+        }
+        else
+        {
+            $html.="<td align='center'>" . $clo_tipoacq . "</td>";
+        }
+
+        $html.="<td align='center'>" . $clo_stracq . "</td>
+                    </tr>
+                    </tbody>
+            </table>
+
+            <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr bgcolor='#003c78' style='color: white; font-family: Arial;  font-size:9pt;'>
+                        <td align='center'><font color='white'>Hash Generati</font></td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td>MD5: $clo_md5</td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td>SHA1: $clo_sha1</td>
+                    </tr>
+                    <tr style='font-size: 8pt;'>
+                        <td>SHA256: $clo_sha256</td>
+                    </tr>
+                    </tbody>
+            </table>";
+        return $html;
+    }
+
+
     /**
      * Visualizza il contenuto di un log.
      * @param $log
@@ -616,6 +958,23 @@ echo"
                     </tr>
                     </tbody>
             </table>";
+    }
+
+
+
+    public function HTML_REPORT_log_mpdf($log)
+    {
+        //$lenlog = strlen($log);
+        $html="
+        <table border='1' cellpadding='7px'>
+                <tbody>
+                    <tr style='background-color: #003c78; font-family: Arial;  font-size:9pt;'>
+                        <td align='center'><font color='white'>Log</font></td>
+                    </tr>
+                    
+                    </tbody>
+            </table>";
+        return $html;
     }
 
 
@@ -653,6 +1012,32 @@ echo"
             </tbody>
             </table>";
     }
+
+
+    public function HTML_REPORT_foto_mpdf($ho_pathfoto, $ho_image1, $md5_image1, $ho_image2, $md5_image2, $ho_image3, $md5_image3, $ho_image4, $md5_image4)
+    {
+        $html = "
+        <table border='0' cellpadding='7px'>
+                <tbody>
+                    <tr bgcolor='#003c78' style='color: white; font-size: 9pt;'>
+                        <td>Foto</td>
+                        <td></td>
+                    </tr>
+                    <tr style='font-size: 9pt;'>";
+        if($md5_image1 != null){$html.="<td align='center'><img src='$ho_pathfoto$ho_image1' width='250px'><br><br>MD5: " . $md5_image1 . "</td>";}
+        if($md5_image2 != null){$html.="<td align='center'><img src='$ho_pathfoto$ho_image2' width='250px'><br><br>MD5: " . $md5_image2 . "</td>";}
+        $html.="</tr>";
+        $html.="<tr style='font-size: 9pt;'>";
+        if($md5_image3 != null){$html.="<td align='center'><img src='$ho_pathfoto$ho_image3' width='250px'><br><br>MD5: " . $md5_image3 . "</td>";}
+        if($md5_image4 != null){$html.="<td align='center'><img src='$ho_pathfoto$ho_image4' width='250px'><br><br>MD5: " . $md5_image4 . "</td>";}
+        $html.="</tr>";
+        $html.="</tbody>
+            </table>
+            </tbody>
+            </table>";
+        return $html;
+    }
+
 
 
     /**
