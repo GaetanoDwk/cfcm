@@ -73,4 +73,4 @@ Infine vi sono alcune configurazioni da effettuare tra cui:
 <p>Per adesso CFCM non integra una libreria per la generazione di PDF ma si può sopperire a ciò utilizzando un software come <a href="https://www.pdfforge.org/pdfcreator">Pdf Creator</a> (consigliato) o similari.</p>
 
 <h2>Donazioni</h2>
-<p><a href="https://www.paypal.com/donate?hosted_button_id=7D5ZJXRNCYUJC">Donazione</a></p>
+<p><a href="https://www.paypal.com/donate?hosted_button_id=7D5ZJXRNCYUJC">https://www.paypal.com/donate?hosted_button_id=7D5ZJXRNCYUJC</a></p>
