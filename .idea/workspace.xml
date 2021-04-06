@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Sostituita classe per fogli xls">
-      <change afterPath="$PROJECT_DIR$/vista/MpdfIndagato.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllo/ControllerIndagato.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllo/ControllerIndagato.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo_neg.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/logo_neg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modello/DbManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/modello/DbManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/ClassPdf.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/HtmlIndagato.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/HtmlIndagato.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/HtmlPainter.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/HtmlPainter.php" afterDir="false" />
+    <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Modifiche per stampa report con mpdf">
       <change beforePath="$PROJECT_DIR$/vista/countries.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +94,7 @@
       <workItem from="1617610518636" duration="2278000" />
       <workItem from="1617655560938" duration="7395000" />
       <workItem from="1617697022320" duration="670000" />
-      <workItem from="1617732879984" duration="11186000" />
+      <workItem from="1617732879984" duration="11448000" />
     </task>
     <task id="LOCAL-00001" summary="Sostituita classe per fogli xls">
       <created>1616454382032</created>
@@ -113,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616454382032</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Modifiche per stampa report con mpdf">
+      <created>1617751049798</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1617751049798</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +130,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Sostituita classe per fogli xls" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sostituita classe per fogli xls" />
+    <MESSAGE value="Modifiche per stampa report con mpdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modifiche per stampa report con mpdf" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
