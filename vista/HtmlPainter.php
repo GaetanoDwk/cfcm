@@ -50,7 +50,7 @@ class HtmlPainter
 
                     <meta charset=\"utf-8\">
 
-                    <title>Computer Forensic Case Manager</title>
+                    <title>Computer Forensics Case Manager</title>
 
                     <meta name=\"description\" content=\"\">
 
@@ -197,10 +197,9 @@ class HtmlPainter
         echo"<div class=\"container\">
                 <!-- Griglia -->
                 <div class=\"docs-section\" id=\"grid\">
-                    <h6 class=\"docs-header\">COMPUTER FORENSIC CASE MANAGER</h6>
                         <div class='row'>
                             <div class='twelve column'>
-                                <center><img src='images/logo.png' width='30%'></center>
+                                <center><img src='images/logo.png' width='55%'></center>
                             </div>
                         </div>
                         <br>

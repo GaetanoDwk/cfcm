@@ -17,6 +17,7 @@ class ControllerIndagato
     public function __construct()
     {
         $this->Html = new HtmlPainter();
+        $this->PdfInd = new MpdfIndagato();
         $this->HtmlIndagato = new HtmlIndagato();
         $this->HtmlHost = new HtmlHost();
         $this->HtmlHostSpecial = new HtmlHostSpecial();
@@ -28,7 +29,6 @@ class ControllerIndagato
         $this->ModelHost= new ModelHost();
         $this->ModelHostSpecial= new ModelHostSpecial();
         $this->ModelEvidence = new ModelEvidence();
-        $this->Pdf = new ClassPdf();
 
     }
 
@@ -320,16 +320,16 @@ class ControllerIndagato
 
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->setFooter('{PAGENO} di {nb}');
-        $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_header_mpdf($ind_cognome, $ind_nome));
-        $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_page_header_mpdf("Supporti Acquisiti"));
-        $html = $this->HtmlIndagato->HTML_REPORT_info_mpdf($ca_num, $ca_tipo, $ind_titolo, $ind_cognome, $ind_nome, $cli_nome, $cli_citta, $pm_titolo, $pm_cognome, $pm_nome, $ctu);
+        $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_header_mpdf($ind_cognome, $ind_nome));
+        $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Supporti Acquisiti"));
+        $html = $this->PdfInd->HTML_REPORT_info_mpdf($ca_num, $ca_tipo, $ind_titolo, $ind_cognome, $ind_nome, $cli_nome, $cli_citta, $pm_titolo, $pm_cognome, $pm_nome, $ctu);
         $mpdf->WriteHTML($html);
         //STAMPA DESCRIZIONE HOST
-        $html = $this->HtmlIndagato->HTML_REPORT_descrizione_host_mpdf($Info, $HostsSpecial, $ho_id, $ho_spec_id);
+        $html = $this->PdfInd->HTML_REPORT_descrizione_host_mpdf($Info, $HostsSpecial, $ho_id, $ho_spec_id);
         $mpdf->WriteHTML($html);
         // STAMPA DESCRIZIONE MEDIA
         $mpdf->WriteHTML("<br>");
-        $html = $this->HtmlIndagato->HTML_REPORT_descrizione_media_mpdf($Info, $HostsSpecial);
+        $html = $this->PdfInd->HTML_REPORT_descrizione_media_mpdf($Info, $HostsSpecial);
         $mpdf->WriteHTML($html);
 
         // PRINT DETTAGLIO HOST
@@ -351,14 +351,34 @@ class ControllerIndagato
                 //if(($ho_image4 != null) && ($ho_image4 != '.') && ($ho_image4 != '..')){$md5_image4 = md5_file($ho_pathfoto.$ho_image4);}else{$md5_image4 = null;}
                 $mpdf->AddPage();
                 $mpdf->WriteHTML("<br>");
-                $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_page_header_mpdf("Dettaglio Host"));
-                $html = $this->HtmlIndagato->HTML_REPORT_dettaglio_host_mpdf($row['ho_etichetta'], $row['ho_modello'], $row['ho_seriale'], $row['ho_pwd'], $row['ho_pwd_used'], $row['ho_tipo']);
+                $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Dettaglio Host"));
+                $html = $this->PdfInd->HTML_REPORT_dettaglio_host_mpdf($row['ho_etichetta'], $row['ho_modello'], $row['ho_seriale'], $row['ho_pwd'], $row['ho_pwd_used'], $row['ho_tipo']);
+                $mpdf->WriteHTML($html);
+                $html = $this->PdfInd->HTML_REPORT_table_one_tr('Foto');
                 $mpdf->WriteHTML($html);
                 // STAMPA IMMAGINI
-                if($md5_image1 != null){$mpdf->Image($ho_pathfoto.$ho_image1, 15, 80, 70, 70, 'jpg', '', true, true);}
-                if($md5_image2 != null){$mpdf->Image($ho_pathfoto.$ho_image2, 120, 80, 70, 70, 'jpg', '', true, true);}
-                if($md5_image3 != null){$mpdf->Image($ho_pathfoto.$ho_image3, 15, 180, 70, 70, 'jpg', '', true, true);}
-                if($md5_image4 != null){$mpdf->Image($ho_pathfoto.$ho_image4, 120, 180, 70, 70, 'jpg', '', true, true);}
+                $mpdf->Ln();
+                $mpdf->WriteHTML("<br><br><br><br><br><br>");
+                if($md5_image1 != null) {
+                    $mpdf->Image($ho_pathfoto.$ho_image1, 25, 90, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 75px; font-size: 8pt;'>MD5: $md5_image1</pre>");
+                }
+                if($md5_image2 != null){
+                    $mpdf->Image($ho_pathfoto.$ho_image2, 115, 90, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 420px; font-size: 8pt;'>MD5: $md5_image2</pre>");
+                }
+                if($md5_image3 != null){
+                    $mpdf->Image($ho_pathfoto.$ho_image3, 25, 165, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 75px; font-size: 8pt;'>MD5: $md5_image3</pre>");
+                }
+                if($md5_image4 != null){
+                    $mpdf->Image($ho_pathfoto.$ho_image4, 115, 165, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 420px; font-size: 8pt;'>MD5: $md5_image4</pre>");
+                }
             }
 
             $ho_id = $row['ho_id'];
@@ -374,14 +394,28 @@ class ControllerIndagato
                 if (($evi_image3 != null) && ($evi_image3 != '.') && ($evi_image3 != '..')){$md5_image3 = md5_file($evi_pathfoto . $evi_image3);}else{$md5_image3 = null;}
                 $mpdf->AddPage();
                 $mpdf->WriteHTML("<br>");
-                $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_page_header_mpdf("Dettaglio Media"));
-                $html = $this->HtmlIndagato->HTML_REPORT_dettaglio_evidence_mpdf($row['ho_etichetta'], $row['evi_etichetta'], $row['evi_tipo'], $row['evi_modello'], $row['evi_seriale'], $row['evi_pwd'], $row['evi_pwd_used'], $row['evi_dimensione'], $row['evi_kbmbgbtb']);
+                $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Dettaglio Media"));
+                $html = $this->PdfInd->HTML_REPORT_dettaglio_evidence_mpdf($row['ho_etichetta'], $row['evi_etichetta'], $row['evi_tipo'], $row['evi_modello'], $row['evi_seriale'], $row['evi_pwd'], $row['evi_pwd_used'], $row['evi_dimensione'], $row['evi_kbmbgbtb']);
                 $mpdf->WriteHTML($html);
                 $mpdf->WriteHTML("</div>");
-                // STAMPA IMMAGINI
-                if($md5_image1 != null){$mpdf->Image($ho_pathfoto.$evi_image1, 15, 80, 70, 70, 'jpg', '', true, true);}
-                if($md5_image2 != null){$mpdf->Image($ho_pathfoto.$evi_image2, 120, 80, 70, 70, 'jpg', '', true, true);}
-                if($md5_image3 != null){$mpdf->Image($ho_pathfoto.$evi_image3, 15, 180, 70, 70, 'jpg', '', true, true);}
+                $html = $this->PdfInd->HTML_REPORT_table_one_tr('Foto');
+                $mpdf->WriteHTML($html);
+                // STAMPA IMMAGINI EVIDENCES
+                if($md5_image1 != null) {
+                    $mpdf->Image($evi_pathfoto.$evi_image1, 25, 135, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 75px; font-size: 8pt;'>MD5: $md5_image1</pre>");
+                }
+                if($md5_image2 != null){
+                    $mpdf->Image($evi_pathfoto.$evi_image2, 115, 135, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 420px; font-size: 8pt;'>MD5: $md5_image2</pre>");
+                }
+                if($md5_image3 != null){
+                    $mpdf->Image($evi_pathfoto.$evi_image3, 25, 210, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 75px; font-size: 8pt;'>MD5: $md5_image3</pre>");
+                }
 
             }
 
@@ -391,13 +425,14 @@ class ControllerIndagato
             {
                 $mpdf->AddPage();
                 $mpdf->WriteHTML("<br>");
-                $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_page_header_mpdf("Acquisizione"));
-                $html = $this->HtmlIndagato->HTML_REPORT_clone_mpdf($row['evi_etichetta'], $row['clo_tipoacq'], $row['clo_altro_tipo'], $row['clo_stracq'], $row['clo_md5'], $row['clo_sha1'], $row['clo_sha256']);
+                $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Acquisizione"));
+                $html = $this->PdfInd->HTML_REPORT_clone_mpdf($row['evi_etichetta'], $row['clo_tipoacq'], $row['clo_altro_tipo'], $row['clo_stracq'], $row['clo_md5'], $row['clo_sha1'], $row['clo_sha256']);
                 $mpdf->WriteHTML($html);
                 $logpath = $row['clo_log'];
                 @$log = file_get_contents($logpath);
-                $html = $this->HtmlIndagato->HTML_REPORT_log_mpdf($log);
+                $html = $this->PdfInd->HTML_REPORT_table_one_tr('Log');
                 $mpdf->WriteHTML($html);
+                $mpdf->WriteHTML("<pre style='font-size: 8pt;'>$log</pre>");
             }
 
             $clo_id = $row['clo_id'];
@@ -415,22 +450,38 @@ class ControllerIndagato
                 $ho_image2 = $row['ho_image2'];
                 $ho_image3 = $row['ho_image3'];
                 $ho_image4 = $row['ho_image4'];
-                //$ho_image4 = $row['ho_image2'];
                 if (($ho_image1 != null) && ($ho_image1 != '.') && ($ho_image1 != '..')){$md5_image1 = md5_file($ho_pathfoto . $ho_image1);}else{$md5_image1 = null;}
                 if (($ho_image2 != null) && ($ho_image2 != '.') && ($ho_image2 != '..')){$md5_image2 = md5_file($ho_pathfoto . $ho_image2);}else{$md5_image2 = null;}
                 if (($ho_image3 != null) && ($ho_image3 != '.') && ($ho_image3 != '..')){$md5_image3 = md5_file($ho_pathfoto . $ho_image3);}else{$md5_image3 = null;}
                 if (($ho_image4 != null) && ($ho_image4 != '.') && ($ho_image4 != '..')){$md5_image4 = md5_file($ho_pathfoto . $ho_image4);}else{$md5_image4 = null;}
-                //if(($ho_image4 != null) && ($ho_image4 != '.') && ($ho_image4 != '..')){$md5_image4 = md5_file($ho_pathfoto.$ho_image4);}else{$md5_image4 = null;}
                 $mpdf->AddPage();
                 $mpdf->WriteHTML("<br>");
-                $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_page_header_mpdf("Dettaglio Host"));
-                $html = $this->HtmlIndagato->HTML_REPORT_dettaglio_host_special_mpdf($row['ho_etichetta'], $row['ho_modello'], $row['ho_seriale'], $row['ho_tipo']);
+                $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Dettaglio Host"));
+                $html = $this->PdfInd->HTML_REPORT_dettaglio_host_special_mpdf($row['ho_etichetta'], $row['ho_modello'], $row['ho_seriale'], $row['ho_tipo']);
                 $mpdf->WriteHTML($html);
-                // STAMPA IMMAGINI
-                if($md5_image1 != null){$mpdf->Image($ho_pathfoto.$ho_image1, 15, 80, 70, 70, 'jpg', '', true, true);}
-                if($md5_image2 != null){$mpdf->Image($ho_pathfoto.$ho_image2, 120, 80, 70, 70, 'jpg', '', true, true);}
-                if($md5_image3 != null){$mpdf->Image($ho_pathfoto.$ho_image3, 15, 180, 70, 70, 'jpg', '', true, true);}
-                if($md5_image4 != null){$mpdf->Image($ho_pathfoto.$ho_image4, 120, 180, 70, 70, 'jpg', '', true, true);}
+                $html = $this->PdfInd->HTML_REPORT_table_one_tr('Foto');
+                $mpdf->WriteHTML($html);
+                // STAMPA IMMAGINI HOST SPECIAL
+                if($md5_image1 != null) {
+                    $mpdf->Image($ho_pathfoto.$ho_image1, 25, 90, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 75px; font-size: 8pt;'>MD5: $md5_image1</pre>");
+                }
+                if($md5_image2 != null){
+                    $mpdf->Image($ho_pathfoto.$ho_image2, 115, 90, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 420px; font-size: 8pt;'>MD5: $md5_image2</pre>");
+                }
+                if($md5_image3 != null){
+                    $mpdf->Image($ho_pathfoto.$ho_image3, 25, 165, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 75px; font-size: 8pt;'>MD5: $md5_image3</pre>");
+                }
+                if($md5_image4 != null){
+                    $mpdf->Image($ho_pathfoto.$ho_image4, 115, 165, 70, 0, 'jpg', '', true, true);
+                    $mpdf->Ln();
+                    $mpdf->WriteHTML("<pre style='position: absolute; left: 420px; font-size: 8pt;'>MD5: $md5_image4</pre>");
+                }
 
             }
 
@@ -440,15 +491,15 @@ class ControllerIndagato
             {
                 $mpdf->AddPage();
                 $mpdf->WriteHTML("<br>");
-                $mpdf->WriteHTML($this->HtmlIndagato->HTML_REPORT_page_header_mpdf("Acquisizione"));
-                $html = $this->HtmlIndagato->HTML_REPORT_clone_mpdf($row['ho_etichetta'], $row['clo_tipoacq'], $row['clo_altro_tipo'], $row['clo_stracq'], $row['clo_md5'], $row['clo_sha1'], $row['clo_sha256']);
+                $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Acquisizione"));
+                $html = $this->PdfInd->HTML_REPORT_clone_mpdf($row['ho_etichetta'], $row['clo_tipoacq'], $row['clo_altro_tipo'], $row['clo_stracq'], $row['clo_md5'], $row['clo_sha1'], $row['clo_sha256']);
                 $mpdf->WriteHTML($html);
                 $logpath = $row['clo_log'];
                 $log = file_get_contents($logpath);
                 //$html = $this->HtmlIndagato->HTML_REPORT_log_mpdf($log);
-                $html = $this->HtmlIndagato->HTML_REPORT_log_mpdf($log);
+                $html = $this->PdfInd->HTML_REPORT_table_one_tr('Log');
                 $mpdf->WriteHTML($html);
-                $mpdf->WriteHTML("<pre>$log</pre>");
+                $mpdf->WriteHTML("<pre style='font-size: 8pt;'>$log</pre>");
                 //$mpdf->WriteHTML($html);
 
             }

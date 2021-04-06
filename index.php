@@ -59,7 +59,7 @@ require_once("vista/HtmlHost.php");
 require_once("vista/HtmlEvidence.php");
 require_once("vista/HtmlTools.php");
 require_once("vista/HtmlUtente.php");
-require_once("vista/ClassPdf.php");
+require_once("vista/MpdfIndagato.php");
 
 
 $controller = "default";

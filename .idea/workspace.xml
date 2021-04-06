@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Sostituita classe per fogli xls">
-      <change beforePath="$PROJECT_DIR$/.idea/CFCM.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CFCM.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vista/MpdfIndagato.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfcm.sql" beforeDir="false" afterPath="$PROJECT_DIR$/cfcm.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllo/ControllerIndagato.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllo/ControllerIndagato.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo_neg.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/logo_neg.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/7z.exe" beforeDir="false" afterPath="$PROJECT_DIR$/script/7z.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/mysql.exe" beforeDir="false" afterPath="$PROJECT_DIR$/script/mysql.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/mysqldump.exe" beforeDir="false" afterPath="$PROJECT_DIR$/script/mysqldump.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modello/DbManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/modello/DbManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/ClassPdf.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/vista/HtmlIndagato.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/HtmlIndagato.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/HtmlPainter.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/HtmlPainter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/countries.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,13 +54,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/vista" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\cfcm" />
       <recent name="C:\xampp\htdocs\cfcm\vista" />
+      <recent name="C:\xampp\htdocs\cfcm" />
       <recent name="C:\xampp\htdocs\cfcm\lib" />
       <recent name="C:\xampp\htdocs\cfcm\script" />
       <recent name="C:\Users\gaetano\PhpstormProjects\cfcm" />
@@ -98,7 +101,10 @@
       <workItem from="1617486704267" duration="7578000" />
       <workItem from="1617548305260" duration="8637000" />
       <workItem from="1617574465024" duration="3584000" />
-      <workItem from="1617610518636" duration="1232000" />
+      <workItem from="1617610518636" duration="2278000" />
+      <workItem from="1617655560938" duration="7395000" />
+      <workItem from="1617697022320" duration="670000" />
+      <workItem from="1617732879984" duration="11186000" />
     </task>
     <task id="LOCAL-00001" summary="Sostituita classe per fogli xls">
       <created>1616454382032</created>
