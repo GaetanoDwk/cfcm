@@ -234,10 +234,9 @@ class HtmlPainter
                 <b style='color: red;'>Username o Password errati. Ritenta!</b>
                 <!-- Griglia -->
                 <div class=\"docs-section\" id=\"grid\">
-                    <h6 class=\"docs-header\">Computer Forensic Case Manager</h6>
                         <div class='row'>
                             <div class='twelve column'>
-                                <center><img src='images/logo.png' width='30%'></center>
+                                <center><img src='images/logo.png' width='55%'></center>
                             </div>
                         </div>
                         <br>

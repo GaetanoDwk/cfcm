@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Update per stampa report (mpdf)" />
+    <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Update logo">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vista/HtmlPainter.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/HtmlPainter.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,6 +99,7 @@
       <workItem from="1617751475782" duration="107000" />
       <workItem from="1617800442086" duration="770000" />
       <workItem from="1617833385754" duration="3990000" />
+      <workItem from="1617837586134" duration="350000" />
     </task>
     <task id="LOCAL-00001" summary="Sostituita classe per fogli xls">
       <created>1616454382032</created>
@@ -125,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617837423632</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update logo">
+      <created>1617837613640</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1617837613641</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,7 +159,8 @@
     <MESSAGE value="Modifiche per stampa report con mpdf" />
     <MESSAGE value="Aggiunto .xcf del logo" />
     <MESSAGE value="Update per stampa report (mpdf)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update per stampa report (mpdf)" />
+    <MESSAGE value="Update logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update logo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
