@@ -44,6 +44,7 @@ class MpdfIndagato
                             word-wrap: break-word;
                             white-space: pre-line;
                             width: 680px;
+                            font-size: 8pt;
                             }
 
                 </style>
@@ -159,8 +160,7 @@ class MpdfIndagato
                         <td $this->StyleTdDetttaglio>" . $ho_seriale . "</td>";
         $html.="       </tr>
                     </tbody>
-            </table>
-            <br>";
+            </table>";
         return $html;
     }
 

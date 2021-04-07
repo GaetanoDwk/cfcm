@@ -11,7 +11,7 @@
  Target Server Version : 100418
  File Encoding         : 65001
 
- Date: 05/04/2021 10:13:27
+ Date: 08/04/2021 01:14:40
 */
 
 SET NAMES utf8mb4;
@@ -56,7 +56,7 @@ CREATE TABLE `caso`  (
   INDEX `vincolo_id_pm`(`ex_id_pm`) USING BTREE,
   INDEX `ca_id`(`ca_id`) USING BTREE,
   CONSTRAINT `caso_ibfk_1` FOREIGN KEY (`ex_id_pm`) REFERENCES `pm` (`pm_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 253 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 255 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for cliente
@@ -70,7 +70,7 @@ CREATE TABLE `cliente`  (
   `is_procura` tinyint(4) NULL DEFAULT 0,
   `is_tribunale` tinyint(4) NULL DEFAULT 0,
   PRIMARY KEY (`cli_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for clone
@@ -160,7 +160,7 @@ CREATE TABLE `host`  (
   INDEX `f_id_caso`(`ex_id_caso`) USING BTREE,
   INDEX `vincolo_id_indag`(`ex_id_indagato`) USING BTREE,
   CONSTRAINT `host_ibfk_1` FOREIGN KEY (`ex_id_indagato`) REFERENCES `indagato` (`ind_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1276 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1277 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for host_special
@@ -202,7 +202,7 @@ CREATE TABLE `indagato`  (
   PRIMARY KEY (`ind_id`) USING BTREE,
   INDEX `vincolo_id_caso`(`ex_id_caso`) USING BTREE,
   CONSTRAINT `indagato_ibfk_1` FOREIGN KEY (`ex_id_caso`) REFERENCES `caso` (`ca_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 545 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 547 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for lavorazione
@@ -261,7 +261,7 @@ CREATE TABLE `pm`  (
   PRIMARY KEY (`pm_id`) USING BTREE,
   INDEX `id_pro`(`ex_id_cli`) USING BTREE,
   CONSTRAINT `pm_ibfk_1` FOREIGN KEY (`ex_id_cli`) REFERENCES `cliente` (`cli_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 127 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 129 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tipo_acquisizione
