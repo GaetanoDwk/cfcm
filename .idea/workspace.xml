@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Aggiunto .xcf del logo">
-      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cfcm.sql" beforeDir="false" afterPath="$PROJECT_DIR$/cfcm.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllo/ControllerIndagato.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllo/ControllerIndagato.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modello/DbManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/modello/DbManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modello/ModelClone.php" beforeDir="false" afterPath="$PROJECT_DIR$/modello/ModelClone.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpinfo.php" beforeDir="false" afterPath="$PROJECT_DIR$/phpinfo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/Upd-Zip-Bkp.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/script/Upd-Zip-Bkp.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vista/MpdfIndagato.php" beforeDir="false" afterPath="$PROJECT_DIR$/vista/MpdfIndagato.php" afterDir="false" />
-    </list>
+    <list default="true" id="3d833061-a092-41c3-90f7-f69d473579d3" name="Default Changelist" comment="Update per stampa report (mpdf)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -105,7 +95,7 @@
       <workItem from="1617732879984" duration="11448000" />
       <workItem from="1617751475782" duration="107000" />
       <workItem from="1617800442086" duration="770000" />
-      <workItem from="1617833385754" duration="3831000" />
+      <workItem from="1617833385754" duration="3990000" />
     </task>
     <task id="LOCAL-00001" summary="Sostituita classe per fogli xls">
       <created>1616454382032</created>
@@ -128,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617751530384</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update per stampa report (mpdf)">
+      <created>1617837423632</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617837423632</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +147,8 @@
     <MESSAGE value="Sostituita classe per fogli xls" />
     <MESSAGE value="Modifiche per stampa report con mpdf" />
     <MESSAGE value="Aggiunto .xcf del logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Aggiunto .xcf del logo" />
+    <MESSAGE value="Update per stampa report (mpdf)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update per stampa report (mpdf)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
