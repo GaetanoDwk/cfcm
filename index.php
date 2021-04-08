@@ -397,7 +397,7 @@ else{
         case "report_indagato":
             $ControllerIndagato->invoke($comando);
             break;
-        case "reportIndagatoFpdf":
+        case "report_indagato_mpdf":
             $ControllerIndagato->invoke($comando);
             break;
 

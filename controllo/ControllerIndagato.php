@@ -74,8 +74,8 @@ class ControllerIndagato
                 $this->report_indagato();
                 break;
 
-            case "reportIndagatoFpdf":
-                $this->reportIndagatoFpdf();
+            case "report_indagato_mpdf":
+                $this->report_indagato_mpdf();
                 break;
 
             case "delete_indagato":
@@ -263,7 +263,7 @@ class ControllerIndagato
 
 
 
-    private function reportIndagatoFpdf()
+    private function report_indagato_mpdf()
     {
         try {
             //SELEZIONE DEL CTU
