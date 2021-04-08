@@ -133,8 +133,8 @@ class MpdfIndagato
                         <td $this->StyleTdDetttaglio>" . $ho_tipo . "</td>
                         <td $this->StyleTdDetttaglio>" . $ho_modello . "</td>
                         <td $this->StyleTdDetttaglio>" . $ho_seriale . "</td>";
-        if($ho_pwd_used == 0){$html .= "<td align='center'>" . $ho_pwd . "</td>";}
-        if($ho_pwd_used == 1){$html .= "<td align='center'>" . $ho_pwd . "&nbsp;&nbsp;" . "<img src='font/icon/check.png' style='height: 12px;'> </td>";}
+        if($ho_pwd_used == 0){$html .= "<td $this->StyleTdDetttaglio>" . $ho_pwd . "</td>";}
+        if($ho_pwd_used == 1){$html .= "<td $this->StyleTdDetttaglio>" . $ho_pwd . "&nbsp;&nbsp;" . "<img src='font/icon/check.png' style='height: 12px;'> </td>";}
         $html .= "       </tr>
                     </tbody>
             </table>";
