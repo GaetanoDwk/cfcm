@@ -9,7 +9,8 @@ class MpdfIndagato
 {
     private $StyleTdDetttaglio = "style='font-size: 8pt;'";
     private $StyleTdHash = "style='font-size: 8pt; text-align: left;'";
-    private $StyleTdColTitle = "style='background: #003c78; color:white; font-family: Arial; font-size:9pt; color:white;'";
+    private $StyleTdColTitle = "style='background: #003c78; color:white; font-family: Arial; font-size:9pt; text-align: center;'";
+    private $StyleDescrizione = "style='font-family: Arial; font-size: 14pt; text-align: center;'";
 
     /**
      * Visualizza l'intestazione del REPORT di supporto alla creazione del DOCX di un determinato indagato
@@ -30,12 +31,18 @@ class MpdfIndagato
                                 border-collapse: collapse;
                                 
                             }
-                            thead, tr, th, b
+                            thead, th, b
                             {
-                                font-family: Arial;
+                                font-family: Arial, sans-serif;
                             }
                             td{
-                                font-family: Arial;
+                                font-family: Arial, sans-serif;
+                                border: solid thin #333333;
+                                text-align: center;
+                                padding: 7px;
+                            }
+                            tr{
+                                font-family: Arial, sans-serif;
                                 border: solid thin #333333;
                                 text-align: center;
                                 padding: 7px;
@@ -100,7 +107,7 @@ class MpdfIndagato
                 <tr>
                     <td style='text-align: left;'><strong>Cliente</strong><br>$cli_nome</td>
                     <td colspan='2' style='text-align: left;'><strong>Contatto Cliente</strong><br>";
-        if($_SESSION['cli_type'] == 'P'){$html .='PM'. $pm_titolo. " " . $pm_cognome . " " . $pm_nome;}else{$html .= $pm_titolo. " " .$pm_cognome. " " .$pm_nome;}
+        if($_SESSION['cli_type'] == 'P'){$html .='PM '. $pm_titolo. " " . $pm_cognome . " " . $pm_nome;}else{$html .= $pm_titolo. " " .$pm_cognome. " " .$pm_nome;}
         "</td>
                 </tr>
                 <tr>
@@ -145,7 +152,7 @@ class MpdfIndagato
     public function HTML_REPORT_dettaglio_host_special_mpdf($ho_etichetta, $ho_modello, $ho_seriale, $ho_tipo)
     {
         $html="
-        <table border='1' cellpadding='7px'>
+        <table border='1'>
                 <tbody>
                     <tr>
                         <td $this->StyleTdColTitle>ID Host</td>
@@ -168,14 +175,14 @@ class MpdfIndagato
     public function HTML_REPORT_descrizione_host_mpdf($Info, $HostsSpecial, $ho_id, $ho_spec_id)
     {
         $html = "
-        <p align='center' style='font-family: Arial; font-size: 14pt;'><b>Descrizione Host</b></p>
-        <table border='1' cellpadding='7px'>
+        <p $this->StyleDescrizione> <b>Descrizione Host</b></p>
+        <table border='1'>
         <tbody>
             <tr>
                 <td $this->StyleTdColTitle>ID Host</td>
                 <td $this->StyleTdColTitle>Tipo</td>
-                <td $this->StyleTdColTitle>Modello</td>
-                <td $this->StyleTdColTitle>Seriale</td>
+                <td $this->StyleTdColTitle width='250px'>Modello</td>
+                <td $this->StyleTdColTitle>Nr. Seriale</td>
             </tr>";
         foreach($Info as $row){
             if ($row['ho_id'] != $ho_id) {
@@ -216,18 +223,16 @@ class MpdfIndagato
     public function HTML_REPORT_descrizione_media_mpdf($arr, $HostsSpecial)
     {
         $html = "
-        <p align='center' style='font-family: Arial; font-size:14pt;' xmlns=\"http://www.w3.org/1999/html\"><b>Descrizione Media</b></p>
-        <table border='1' cellpadding='7px'>
-    <thead>
-    </thead>
-    <tbody>
-        <tr>
-            <td $this->StyleTdColTitle>Host</td>
-            <td $this->StyleTdColTitle>Evidence</td>
-            <td $this->StyleTdColTitle>Modello</td>
-            <td $this->StyleTdColTitle>Dim.</td>
-            <td $this->StyleTdColTitle>Nr. Seriale</td>
-        </tr>";
+        <p $this->StyleDescrizione><b>Descrizione Media</b></p>
+        <table border='1'>
+        <tbody>
+            <tr>
+                <td $this->StyleTdColTitle>ID Host</td>
+                <td $this->StyleTdColTitle>Evidence</td>
+                <td $this->StyleTdColTitle width='250px'>Modello</td>
+                <td $this->StyleTdColTitle>Dim.</td>
+                <td $this->StyleTdColTitle>Nr. Seriale</td>
+            </tr>";
         $IdEvi = 0;
         $ho_spec_id = 0;
         foreach($arr as $row){
@@ -269,7 +274,7 @@ class MpdfIndagato
     public function HTML_REPORT_dettaglio_evidence_mpdf($ho_etichetta, $evi_etichetta, $evi_tipo, $evi_modello, $evi_seriale, $evi_pwd, $evi_pwd_used, $evi_dimensione, $evi_kbmbgbtb)
     {
         $html = "
-        <table border='1' cellpadding='7px'>
+        <table border='1'>
                 <tbody>
                     <tr>
                         <td $this->StyleTdColTitle>ID Host</td>

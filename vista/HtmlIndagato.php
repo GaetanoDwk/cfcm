@@ -73,8 +73,8 @@ class HtmlIndagato
                             <td>
                                 <form action='index.php' method='post' target='_blank'>
                                 <input type='hidden' id='ind_id' name='ind_id'  value=" . $row['ind_id'] .">
-                                <!--button type='submit' name='comando' value='report_indagato' title='Genera Report' style='border:none; padding:0px 0px;'><i class=\"fa fa-file-pdf-o fa-3x\" aria-hidden=\"true\"></i></button-->
-                                <button type='submit' name='comando' value='report_indagato_mpdf' title='Genera PDF' style='border:none; padding:0px 0px;'><i class=\"fa fa-file-pdf-o fa-3x\" aria-hidden=\"true\"></i></button>
+                                <button type='submit' name='comando' value='report_indagato' title='Genera Report' style='border:none; padding:0px 0px; color: red;'><i class=\"fa fa-file-pdf-o fa-3x\" aria-hidden=\"true\"></i></button>
+                                <button type='submit' name='comando' value='report_indagato_mpdf' title='Genera PDF' style='border:none; padding:0px 0px; color: green;'><i class=\"fa fa-file-pdf-o fa-3x\" aria-hidden=\"true\"></i></button>
                                 </form>
                             </td>
                             <form action='index.php'  method='post'>
@@ -207,7 +207,7 @@ class HtmlIndagato
         echo"<html>
             <head>
                 <title>$ind_cognome $ind_nome</title>
-                <style type='text/css' media='print'>
+                <style>
         body {background: white;}
                         p {color: black;}
                             table

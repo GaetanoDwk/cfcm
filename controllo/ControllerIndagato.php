@@ -389,6 +389,7 @@ class ControllerIndagato
                     }
                 }
 
+
                 $ho_id = $row['ho_id'];
 
                 if ($evi_id != $row['evi_id']) {
@@ -411,6 +412,7 @@ class ControllerIndagato
                     } else {
                         $md5_image3 = null;
                     }
+                    // PRINT DETTAGLIO MEDIA/EVIDENCE
                     $mpdf->AddPage();
                     $mpdf->WriteHTML("<br>");
                     $mpdf->WriteHTML($this->PdfInd->HTML_REPORT_page_header_mpdf("Dettaglio Media"));
@@ -420,22 +422,41 @@ class ControllerIndagato
                     $html = $this->PdfInd->HTML_REPORT_table_one_tr('Foto');
                     $mpdf->WriteHTML($html);
                     // STAMPA IMMAGINI EVIDENCES
-                    if ($md5_image1 != null) {
-                        $mpdf->Image($evi_pathfoto . $evi_image1, 25, 115, 70, 0, 'jpg', '', true, true);
-                        $mpdf->Ln();
-                        $mpdf->WriteHTML("<pre style='position: absolute; left: 105px; font-size: 8pt;'>MD5: $md5_image1</pre>");
+                    // Se evi_tipo è SimCard allora le immagini saranno posizionate ad un'altezza differente rispetto agli evidence di diversa tipologia.
+                    if($row['evi_tipo'] == 'SimCard'){
+                        if ($md5_image1 != null) {
+                            $mpdf->Image($evi_pathfoto . $evi_image1, 25, 128, 70, 0, 'jpg', '', true, true);
+                            $mpdf->Ln();
+                            $mpdf->WriteHTML("<pre style='position: absolute; left: 105px; font-size: 8pt;'>MD5: $md5_image1</pre>");
+                        }
+                        if ($md5_image2 != null) {
+                            $mpdf->Image($evi_pathfoto . $evi_image2, 115, 128, 70, 0, 'jpg', '', true, true);
+                            $mpdf->Ln();
+                            $mpdf->WriteHTML("<pre style='position: absolute; left: 450px; font-size: 8pt;'>MD5: $md5_image2</pre>");
+                        }
+                        if ($md5_image3 != null) {
+                            $mpdf->Image($evi_pathfoto . $evi_image3, 25, 208, 70, 0, 'jpg', '', true, true);
+                            $mpdf->Ln();
+                            $mpdf->WriteHTML("<pre style='position: absolute; left: 105px; font-size: 8pt;'>MD5: $md5_image3</pre>");
+                        }
                     }
-                    if ($md5_image2 != null) {
-                        $mpdf->Image($evi_pathfoto . $evi_image2, 115, 115, 70, 0, 'jpg', '', true, true);
-                        $mpdf->Ln();
-                        $mpdf->WriteHTML("<pre style='position: absolute; left: 450px; font-size: 8pt;'>MD5: $md5_image2</pre>");
+                    else{
+                        if ($md5_image1 != null) {
+                            $mpdf->Image($evi_pathfoto . $evi_image1, 25, 115, 70, 0, 'jpg', '', true, true);
+                            $mpdf->Ln();
+                            $mpdf->WriteHTML("<pre style='position: absolute; left: 105px; font-size: 8pt;'>MD5: $md5_image1</pre>");
+                        }
+                        if ($md5_image2 != null) {
+                            $mpdf->Image($evi_pathfoto . $evi_image2, 115, 115, 70, 0, 'jpg', '', true, true);
+                            $mpdf->Ln();
+                            $mpdf->WriteHTML("<pre style='position: absolute; left: 450px; font-size: 8pt;'>MD5: $md5_image2</pre>");
+                        }
+                        if ($md5_image3 != null) {
+                            $mpdf->Image($evi_pathfoto . $evi_image3, 25, 195, 70, 0, 'jpg', '', true, true);
+                            $mpdf->Ln();
+                            $mpdf->WriteHTML("<pre style='position: absolute; left: 105px; font-size: 8pt;'>MD5: $md5_image3</pre>");
+                        }
                     }
-                    if ($md5_image3 != null) {
-                        $mpdf->Image($evi_pathfoto . $evi_image3, 25, 195, 70, 0, 'jpg', '', true, true);
-                        $mpdf->Ln();
-                        $mpdf->WriteHTML("<pre style='position: absolute; left: 105px; font-size: 8pt;'>MD5: $md5_image3</pre>");
-                    }
-
                 }
 
                 $evi_id = $row['evi_id'];
