@@ -1,18 +1,17 @@
 # CFCM
-<img src=/images/logo.png height='200px'>
+<img src=/images/logo.png height='200px' alt='logo'>
 Computer Forensics Case Manager<br>
 
 <p>CFCM è un gestionale open-source web based pensato per piccole aziende o singoli professionisti nel settore della Digital Forensics. Permette di gestire agevolmente le informazioni relative agli artefatti informatici ed infine generare una reportistica in pdf.
 Inoltre integra dei "tools" di ausilio al lavoro con altri strumenti che un tecnico forense utilizza spesso; come ad esempio Ftk Toolkit e Cellebrite Ufed Reader.</p>
 <h2>Pre-Requisiti</h2>
 <p>L'installazione del gestionale richiede la presenza dell'ambiente di sviluppo per PHP denominato <a href="https://www.apachefriends.org/download.html" rel="nofollow">Xampp (3.2.4 o superiore)</a><br>
-  Quest'ultimo integra già al suo interno tutto l'occorrente, ovvero:
+  Quest'ultimo integra già al suo interno tutto l'occorrente, ovvero:</p>
   <ul>
     <li>Web Server Apache 2.4.46</li>
     <li>Interprete PHP 8</li>
     <li>Database MySQL 8 / MariaDb 10.4</li>
   </ul>
-</p>
 <p>Inoltre, nonostante Xampp integri già <a href="https://www.phpmyadmin.net/" rel="nofollow">PhpMyAdmin</a> che permette di gestire MySQL da pannello web, è utile installare un software per la gestione del database come i seguenti:</p>
 <ul>
   <li><a href="https://www.mysql.com/products/workbench/" rel="nofollow">MySQL Workbench</a>
