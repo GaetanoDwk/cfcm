@@ -7,10 +7,32 @@
  */
 class MpdfIndagato
 {
-    private $StyleTdDetttaglio = "style='font-size: 8pt;'";
-    private $StyleTdHash = "style='font-size: 8pt; text-align: left;'";
-    private $StyleTdColTitle = "style='background: #003c78; color:white; font-family: Arial; font-size:9pt; text-align: center;'";
-    private $StyleDescrizione = "style='font-family: Arial; font-size: 14pt; text-align: center;'";
+
+    /**
+     * Stampa i tag per creare una nuova pagina. In questo modo quando si stampa la reportistica è possibile suddividere
+     * i dati in pagine a seconda delle esigenze
+     */
+    public function HTML_newpage(){
+        $html = "<div style='page-break-before: always;'>";
+        return $html;
+    }
+
+    /**
+     * Stampa il tag di chiusura della pagina aperta dalla funzione Html_newpage()
+     */
+    public function HTML_close_newpage(){
+        $html = "</div>";
+        return $html;
+    }
+
+
+    /**
+     * Stampa il tag di andata a capo <br>
+     */
+    public function HTML_br(){
+        $html = "<br>";
+        return $html;
+    }
 
     /**
      * Visualizza l'intestazione del REPORT di supporto alla creazione del DOCX di un determinato indagato
@@ -21,40 +43,7 @@ class MpdfIndagato
         $html = "<html>
             <head>
                 <title>$ind_cognome $ind_nome</title>
-                <style>
-                    body {background: white;}
-                        p {color: black;}
-                            table
-                            {
-                                width: 695px;
-                                border: solid thin #333333;
-                                border-collapse: collapse;
-                                
-                            }
-                            thead, th, b
-                            {
-                                font-family: Arial, sans-serif;
-                            }
-                            td{
-                                font-family: Arial, sans-serif;
-                                border: solid thin #333333;
-                                text-align: center;
-                                padding: 7px;
-                            }
-                            tr{
-                                font-family: Arial, sans-serif;
-                                border: solid thin #333333;
-                                text-align: center;
-                                padding: 7px;
-                            }
-                            pre{
-                            word-wrap: break-word;
-                            white-space: pre-line;
-                            width: 680px;
-                            font-size: 8pt;
-                            }
-
-                </style>
+                 <link rel='stylesheet' href='css/report_style.css'>
             </head>
         <body>";
         return $html;
@@ -70,9 +59,9 @@ class MpdfIndagato
         <table>
                 <tbody>
                     <tr>
-                        <td style='width: 160px;'>Computer Forensics Case Manager</td>
-                        <td style='width: 395px;'><center><b style='font-size: 14pt'>$titolo</b></center></td>
-                        <td style='width: 140px;'><img src='images/logo.png' width='100px' align='left'></td>
+                        <td id='cfcm'>Computer Forensics Case Manager</td>
+                        <td id='titolo'>$titolo</td>
+                        <td id='logotd'><img id='logoimg' alt='logo' src='images/logo.png'></td>
                     </tr>
                 </tbody>
             </table>
@@ -101,21 +90,21 @@ class MpdfIndagato
         <table>
             <tbody>
                 <tr>
-                    <td style='text-align: left;'><strong>Numero del Caso:</strong><br>$ca_num</td>
-                    <td colspan='2' style='text-align: left;'><strong>$ind_titolo</strong><br>$ind_cognome $ind_nome</td>
+                    <td class='textleft'><strong>Numero del Caso:</strong><br>$ca_num</td>
+                    <td class='textleft' colspan='2'><strong>$ind_titolo</strong><br>$ind_cognome $ind_nome</td>
                 </tr>
                 <tr>
-                    <td style='text-align: left;'><strong>Cliente</strong><br>$cli_nome</td>
-                    <td colspan='2' style='text-align: left;'><strong>Contatto Cliente</strong><br>";
+                    <td class='textleft'><strong>Cliente</strong><br>$cli_nome</td>
+                    <td class='textleft' colspan='2'><strong>Contatto Cliente</strong><br>";
         if($_SESSION['cli_type'] == 'P'){$html .='PM '. $pm_titolo. " " . $pm_cognome . " " . $pm_nome;}else{$html .= $pm_titolo. " " .$pm_cognome. " " .$pm_nome;}
         "</td>
                 </tr>
                 <tr>
                     <td style='text-align: left;'><strong>Luogo</strong><br>$cli_citta</td>";
-        if($_SESSION['cli_type']=='P'){$html .= "<td style='text-align: left;'><strong>C.T.U.</strong><br>$ctu</td>";};
-        if($_SESSION['cli_type']=='T'){$html .= "<td style='text-align: left;'><strong>Perito</strong><br>$ctu</td>";};
-        if($_SESSION['cli_type']=='C'){$html .= "<td style='text-align: left;'><strong>C.T.P.</strong><br>$ctu</td>";};
-        $html .= "<td style='text-align: left;'><strong>Tipo di Investigazione</strong><br>$ca_tipo</td>
+        if($_SESSION['cli_type']=='P'){$html .= "<td class='textleft'><strong>C.T.U.</strong><br>$ctu</td>";};
+        if($_SESSION['cli_type']=='T'){$html .= "<td class='textleft'><strong>Perito</strong><br>$ctu</td>";};
+        if($_SESSION['cli_type']=='C'){$html .= "<td class='textleft'><strong>C.T.P.</strong><br>$ctu</td>";};
+        $html .= "<td class='textleft'><strong>Tipo di Investigazione</strong><br>$ca_tipo</td>
                 </tr>
             </tbody>
         </table>";
@@ -129,19 +118,19 @@ class MpdfIndagato
         <table>
                 <tbody>
                     <tr>
-                        <td $this->StyleTdColTitle>ID Host</td>
-                        <td $this->StyleTdColTitle>Tipo</td>
-                        <td $this->StyleTdColTitle>Modello</td>
-                        <td $this->StyleTdColTitle>Nr. Seriale</td>
-                        <td $this->StyleTdColTitle>Password</td>
+                        <td class='tabcol'>ID Host</td>
+                        <td class='tabcol'>Tipo</td>
+                        <td class='tabcol'>Modello</td>
+                        <td class='tabcol'>Nr. Seriale</td>
+                        <td class='tabcol'>Password</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdDetttaglio>" . $ho_etichetta . "</td>
-                        <td $this->StyleTdDetttaglio>" . $ho_tipo . "</td>
-                        <td $this->StyleTdDetttaglio>" . $ho_modello . "</td>
-                        <td $this->StyleTdDetttaglio>" . $ho_seriale . "</td>";
-        if($ho_pwd_used == 0){$html .= "<td $this->StyleTdDetttaglio>" . $ho_pwd . "</td>";}
-        if($ho_pwd_used == 1){$html .= "<td $this->StyleTdDetttaglio>" . $ho_pwd . "&nbsp;&nbsp;" . "<img src='font/icon/check.png' style='height: 12px;'> </td>";}
+                        <td class='tabcell'>" . $ho_etichetta . "</td>
+                        <td class='tabcell'>" . $ho_tipo . "</td>
+                        <td class='tabcell'>" . $ho_modello . "</td>
+                        <td class='tabcell'>" . $ho_seriale . "</td>";
+        if($ho_pwd_used == 0){$html .= "<td class='tabcell'>" . $ho_pwd . "</td>";}
+        if($ho_pwd_used == 1){$html .= "<td class='tabcell'>" . $ho_pwd . "&nbsp;&nbsp;" . "<img src='font/icon/check.png' style='height: 12px;'> </td>";}
         $html .= "       </tr>
                     </tbody>
             </table>";
@@ -152,19 +141,19 @@ class MpdfIndagato
     public function HTML_REPORT_dettaglio_host_special_mpdf($ho_etichetta, $ho_modello, $ho_seriale, $ho_tipo)
     {
         $html="
-        <table border='1'>
+        <table>
                 <tbody>
                     <tr>
-                        <td $this->StyleTdColTitle>ID Host</td>
-                        <td $this->StyleTdColTitle>Tipo</td>
-                        <td $this->StyleTdColTitle>Modello</td>
-                        <td $this->StyleTdColTitle>Nr. Seriale</td>
+                        <td class='tabcol'>ID Host</td>
+                        <td class='tabcol'>Tipo</td>
+                        <td class='tabcol'>Modello</td>
+                        <td class='tabcol'>Nr. Seriale</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdDetttaglio>" . $ho_etichetta . "</td>
-                        <td $this->StyleTdDetttaglio>" . $ho_tipo . "</td>
-                        <td $this->StyleTdDetttaglio>" . $ho_modello . "</td>
-                        <td $this->StyleTdDetttaglio>" . $ho_seriale . "</td>";
+                        <td class='tabcell'>" . $ho_etichetta . "</td>
+                        <td class='tabcell'>" . $ho_tipo . "</td>
+                        <td class='tabcell'>" . $ho_modello . "</td>
+                        <td class='tabcell'>" . $ho_seriale . "</td>";
         $html.="       </tr>
                     </tbody>
             </table>";
@@ -175,22 +164,22 @@ class MpdfIndagato
     public function HTML_REPORT_descrizione_host_mpdf($Info, $HostsSpecial, $ho_id, $ho_spec_id)
     {
         $html = "
-        <p $this->StyleDescrizione> <b>Descrizione Host</b></p>
-        <table border='1'>
-        <tbody>
-            <tr>
-                <td $this->StyleTdColTitle>ID Host</td>
-                <td $this->StyleTdColTitle>Tipo</td>
-                <td $this->StyleTdColTitle width='250px'>Modello</td>
-                <td $this->StyleTdColTitle>Nr. Seriale</td>
-            </tr>";
+        <p class='descrizione'> <b>Descrizione Host</b></p>
+        <table>
+            <tbody>
+                <tr>
+                    <td class='tabcol'>ID Host</td>
+                    <td class='tabcol'>Tipo</td>
+                    <td class='tabcolModello'>Modello</td>
+                    <td class='tabcol'>Nr. Seriale</td>
+                </tr>";
         foreach($Info as $row){
             if ($row['ho_id'] != $ho_id) {
                 $html .= "<tr>
-                            <td $this->StyleTdDetttaglio>" . $row['ho_etichetta'] . "</td>
-                            <td $this->StyleTdDetttaglio>" . $row['ho_tipo'] . "</td>
-                            <td $this->StyleTdDetttaglio>" . $row['ho_modello'] . "</td>
-                            <td $this->StyleTdDetttaglio>" . $row['ho_seriale'] . "</td>
+                            <td class='tabcell'>" . $row['ho_etichetta'] . "</td>
+                            <td class='tabcell'>" . $row['ho_tipo'] . "</td>
+                            <td class='tabcell'>" . $row['ho_modello'] . "</td>
+                            <td class='tabcell'>" . $row['ho_seriale'] . "</td>
                          </tr>";
                 $ho_id = $row['ho_id'];
             }
@@ -203,10 +192,10 @@ class MpdfIndagato
                 if ($row['ho_id'] != $ho_spec_id) {
                     $html .= "
                             <tr>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_etichetta'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_tipo'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_modello'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_seriale'] . "</td>
+                                <td class='tabcell'>" . $row['ho_etichetta'] . "</td>
+                                <td class='tabcell'>" . $row['ho_tipo'] . "</td>
+                                <td class='tabcell'>" . $row['ho_modello'] . "</td>
+                                <td class='tabcell'>" . $row['ho_seriale'] . "</td>
                             </tr>
                             ";
                     $ho_spec_id = $row['ho_id'];
@@ -223,26 +212,26 @@ class MpdfIndagato
     public function HTML_REPORT_descrizione_media_mpdf($arr, $HostsSpecial)
     {
         $html = "
-        <p $this->StyleDescrizione><b>Descrizione Media</b></p>
-        <table border='1'>
-        <tbody>
-            <tr>
-                <td $this->StyleTdColTitle>ID Host</td>
-                <td $this->StyleTdColTitle>Evidence</td>
-                <td $this->StyleTdColTitle width='250px'>Modello</td>
-                <td $this->StyleTdColTitle>Dim.</td>
-                <td $this->StyleTdColTitle>Nr. Seriale</td>
-            </tr>";
+        <p class='descrizione'><b>Descrizione Media</b></p>
+        <table>
+            <tbody>
+                <tr>
+                    <td class='tabcol'>ID Host</td>
+                    <td class='tabcol'>Evidence</td>
+                    <td class='tabcolModello'>Modello</td>
+                    <td class='tabcol'>Dim.</td>
+                    <td class='tabcol'>Nr. Seriale</td>
+                </tr>";
         $IdEvi = 0;
         $ho_spec_id = 0;
         foreach($arr as $row){
             if($IdEvi != $row['evi_id']) {
                 $html .= "<tr>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_etichetta'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['evi_etichetta'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['evi_modello'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['evi_dimensione'] . " " . $row['evi_kbmbgbtb'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['evi_seriale'] . "</td>
+                                <td class='tabcell'>" . $row['ho_etichetta'] . "</td>
+                                <td class='tabcell'>" . $row['evi_etichetta'] . "</td>
+                                <td class='tabcell'>" . $row['evi_modello'] . "</td>
+                                <td class='tabcell'>" . $row['evi_dimensione'] . " " . $row['evi_kbmbgbtb'] . "</td>
+                                <td class='tabcell'>" . $row['evi_seriale'] . "</td>
                      </tr>";
                 $IdEvi = $row['evi_id'];
             }
@@ -253,11 +242,11 @@ class MpdfIndagato
                 if ($row['ho_id'] != $ho_spec_id) {
                     $html .= "
                             <tr>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_etichetta'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_etichetta'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_modello'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_dimensione'] . " " . $row['ho_kbmbgbtb'] . "</td>
-                                <td $this->StyleTdDetttaglio>" . $row['ho_seriale'] . "</td>
+                                <td class='tabcell'>" . $row['ho_etichetta'] . "</td>
+                                <td class='tabcell'>" . $row['ho_etichetta'] . "</td>
+                                <td class='tabcell'>" . $row['ho_modello'] . "</td>
+                                <td class='tabcell'>" . $row['ho_dimensione'] . " " . $row['ho_kbmbgbtb'] . "</td>
+                                <td class='tabcell'>" . $row['ho_seriale'] . "</td>
                             </tr>
                             ";
                     $ho_spec_id = $row['ho_id'];
@@ -274,48 +263,48 @@ class MpdfIndagato
     public function HTML_REPORT_dettaglio_evidence_mpdf($ho_etichetta, $evi_etichetta, $evi_tipo, $evi_modello, $evi_seriale, $evi_pwd, $evi_pwd_used, $evi_dimensione, $evi_kbmbgbtb)
     {
         $html = "
-        <table border='1'>
+        <table>
                 <tbody>
                     <tr>
-                        <td $this->StyleTdColTitle>ID Host</td>
-                        <td $this->StyleTdColTitle>Evidence</td>
-                        <td $this->StyleTdColTitle>Tipo</td>
+                        <td class='tabcol'>ID Host</td>
+                        <td class='tabcol'>Evidence</td>
+                        <td class='tabcol'>Tipo</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdDetttaglio>" . $ho_etichetta . "</td>
-                        <td $this->StyleTdDetttaglio>" . $evi_etichetta . "</td>
-                        <td $this->StyleTdDetttaglio>" . $evi_tipo . "</td>
+                        <td class='tabcell'>" . $ho_etichetta . "</td>
+                        <td class='tabcell'>" . $evi_etichetta . "</td>
+                        <td class='tabcell'>" . $evi_tipo . "</td>
                     </tr>
 
 
                     <tr>
-                        <td $this->StyleTdColTitle>Modello</td>
-                        <td $this->StyleTdColTitle>Seriale</td>
-                        <td $this->StyleTdColTitle>Dimensione</td>
+                        <td class='tabcol'>Modello</td>
+                        <td class='tabcol'>Seriale</td>
+                        <td class='tabcol'>Dimensione</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdDetttaglio>" . $evi_modello . "</td>
-                        <td $this->StyleTdDetttaglio>" . $evi_seriale . "</td>
-                        <td $this->StyleTdDetttaglio>" . $evi_dimensione . $evi_kbmbgbtb . "</td>
+                        <td class='tabcell'>" . $evi_modello . "</td>
+                        <td class='tabcell'>" . $evi_seriale . "</td>
+                        <td class='tabcell'>" . $evi_dimensione . $evi_kbmbgbtb . "</td>
                     </tr>";
 
         if($evi_tipo == 'SimCard'){
             $html.="<tr>
-                                <td $this->StyleTdColTitle>Password</td>
+                                <td class='tabcol'>Password</td>
                              </tr>
                              <tr>";
-            if($evi_pwd_used == 0){$html.="<td $this->StyleTdDetttaglio>" . $evi_pwd . "</td>";};
-            if($evi_pwd_used == 1){$html.="<td $this->StyleTdDetttaglio>" . $evi_pwd . "&nbsp;&nbsp;<img src='font/icon/check.png' style='height: 12px;'> </td>";}
+            if($evi_pwd_used == 0){$html.="<td class='tabcell'>" . $evi_pwd . "</td>";};
+            if($evi_pwd_used == 1){$html.="<td class='tabcell'>" . $evi_pwd . "&nbsp;&nbsp;<img src='font/icon/check.png' style='height: 12px;'> </td>";}
             $html.="</tr>";
         }
 
         $html.="</tbody>
             </table>
             <br>
-            <b style='font-family: Arial; font-size: 14pt;'>Note:</b>
+            <b id='note'>Note:</b>
             <table>
                 <tbody>
-                    <tr><td height='70px'></td></tr>
+                    <tr><td id='tdNote'></td></tr>
                 </tbody>
             </table>";
         return $html;
@@ -327,23 +316,23 @@ class MpdfIndagato
         $html="<table>
                 <tbody>
                     <tr>
-                        <td $this->StyleTdColTitle>Evidence</td>
-                        <td $this->StyleTdColTitle>Tipo Acquisizione</td>
-                        <td $this->StyleTdColTitle>Strumento</td>
+                        <td class='tabcol'>Evidence</td>
+                        <td class='tabcol'>Tipo Acquisizione</td>
+                        <td class='tabcol'>Strumento</td>
 
                     </tr>
                     <tr>
-                        <td $this->StyleTdDetttaglio>" . $evi_etichetta . "</td>";
+                        <td class='tabcell'>" . $evi_etichetta . "</td>";
         if($clo_tipoacq == "Altro")
         {
-            $html.="<td $this->StyleTdDetttaglio>" . $clo_tipoacq . ": " . $clo_altro_tipo ."</td>";
+            $html.="<td class='tabcell'>" . $clo_tipoacq . ": " . $clo_altro_tipo ."</td>";
         }
         else
         {
-            $html.="<td $this->StyleTdDetttaglio>" . $clo_tipoacq . "</td>";
+            $html.="<td class='tabcell'>" . $clo_tipoacq . "</td>";
         }
 
-        $html.="<td $this->StyleTdDetttaglio>" . $clo_stracq . "</td>
+        $html.="<td class='tabcell'>" . $clo_stracq . "</td>
                     </tr>
                     </tbody>
             </table>
@@ -351,16 +340,16 @@ class MpdfIndagato
             <table>
                 <tbody>
                     <tr>
-                        <td $this->StyleTdColTitle>Hash Generati</td>
+                        <td class='tabcol'>Hash Generati</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdHash>MD5: $clo_md5</td>
+                        <td class='hashGenerati'>MD5: $clo_md5</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdHash>SHA1: $clo_sha1</td>
+                        <td class='hashGenerati'>SHA1: $clo_sha1</td>
                     </tr>
                     <tr>
-                        <td $this->StyleTdHash>SHA256: $clo_sha256</td>
+                        <td class='hashGenerati'>SHA256: $clo_sha256</td>
                     </tr>
                     </tbody>
             </table>";
@@ -373,14 +362,68 @@ class MpdfIndagato
         $html="<table>
                 <tbody>
                     <tr>
-                        <td $this->StyleTdColTitle>$stringa</td>
+                        <td class='tabcol'>$stringa</td>
                     </tr>
                 </tbody>
                </table>";
         return $html;
     }
 
+    /**
+     * Visualizza le foto di un host.
+     * @param $ho_pathfoto
+     * @param $ho_image1
+     * @param $md5_image1
+     * @param $ho_image2
+     * @param $md5_image2
+     * @param $ho_image3
+     * @param $md5_image3
+     * @param $ho_image4
+     * @param $md5_image4
+     */
+    public function HTML_REPORT_foto_mpdf_OLD($ho_pathfoto, $ho_image1, $md5_image1, $ho_image2, $md5_image2, $ho_image3, $md5_image3, $ho_image4, $md5_image4)
+    {
+        echo"<table class='noborder'>
+                <tbody>
+                    <tr class='noborder'>";
+                        if($md5_image1 != null){echo"<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image1'><br><br>MD5: $md5_image1</td>";/*echo"<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image1'><br><br>MD5: " . $md5_image1 . "</td>";*/}
+                        if($md5_image2 != null){echo"<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image2'><br><br>MD5: $md5_image2</td>";}
+                        echo"</tr>";
 
+
+                echo"<tr class='noborder'>";
+                    if($md5_image3 != null){echo"<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image3'><br><br>MD5: $md5_image3</td>";}
+                    if($md5_image4 != null){echo"<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image4'><br><br>MD5: $md5_image4</td>";}
+                echo"</tr></tbody></table>";
+    }
+
+
+    public function HTML_REPORT_foto_mpdf($ho_pathfoto, $ho_image1, $md5_image1, $ho_image2, $md5_image2, $ho_image3, $md5_image3, $ho_image4, $md5_image4)
+    {
+        $html = null;
+        if(($md5_image1 != null) || ($md5_image2 != null)) {
+            $html .= "
+            <table class='noborder'>
+                <tr class='noborder'>";
+                    if($md5_image1 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image1'><br><br>MD5: $md5_image1</td>";}
+                    if($md5_image2 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image2'><br><br>MD5: $md5_image2</td>";}
+            $html.="    
+            </tr>
+            </table>";
+        }
+        $html.="<br><br>";
+        if(($md5_image3 != null) || ($md5_image4 != null)) {
+            $html.= "
+            <table class='noborder'>
+                <tr class='noborder'>";
+                    if($md5_image3 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image3'><br><br>MD5: $md5_image3</td>";}
+                    if($md5_image4 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image4'><br><br>MD5: $md5_image4</td>";}
+            $html.="
+                </tr>
+            </table>";
+        }
+        return $html;
+    }
 
 
 }

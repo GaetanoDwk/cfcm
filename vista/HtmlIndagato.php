@@ -640,8 +640,6 @@ echo"
                         if($md5_image4 != null){echo"<td align='center'><img src='$ho_pathfoto$ho_image4' width='250px'><br><br>MD5: " . $md5_image4 . "</td>";}
                     echo"</tr>";
                   echo"</tbody>
-            </table>
-            </tbody>
             </table>";
     }
 
