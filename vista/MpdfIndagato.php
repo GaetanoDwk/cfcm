@@ -288,7 +288,7 @@ class MpdfIndagato
                         <td class='tabcell'>" . $evi_dimensione . $evi_kbmbgbtb . "</td>
                     </tr>";
 
-        if($evi_tipo == 'SimCard'){
+        if($evi_pwd != null){
             $html.="<tr>
                                 <td class='tabcol'>Password</td>
                              </tr>
@@ -405,8 +405,8 @@ class MpdfIndagato
             $html .= "
             <table class='noborder'>
                 <tr class='noborder'>";
-                    if($md5_image1 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image1'><br><br>MD5: $md5_image1</td>";}
-                    if($md5_image2 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image2'><br><br>MD5: $md5_image2</td>";}
+                    if($md5_image1 != null){$html.="<td class='noborder hashFotoCenter'><img class='foto' src='$ho_pathfoto$ho_image1'><br><br>MD5: $md5_image1</td>";}
+                    if($md5_image2 != null){$html.="<td class='noborder hashFotoCenter'><img class='foto' src='$ho_pathfoto$ho_image2'><br><br>MD5: $md5_image2</td>";}
             $html.="    
             </tr>
             </table>";
@@ -416,8 +416,8 @@ class MpdfIndagato
             $html.= "
             <table class='noborder'>
                 <tr class='noborder'>";
-                    if($md5_image3 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image3'><br><br>MD5: $md5_image3</td>";}
-                    if($md5_image4 != null){$html.="<td class='noborder hashFoto'><img class='foto' src='$ho_pathfoto$ho_image4'><br><br>MD5: $md5_image4</td>";}
+                    if($md5_image3 != null){$html.="<td class='noborder hashFotoCenter'><img class='foto' src='$ho_pathfoto$ho_image3'><br><br>MD5: $md5_image3</td>";}
+                    if($md5_image4 != null){$html.="<td class='noborder hashFotoCenter'><img class='foto' src='$ho_pathfoto$ho_image4'><br><br>MD5: $md5_image4</td>";}
             $html.="
                 </tr>
             </table>";

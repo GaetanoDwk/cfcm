@@ -101,10 +101,22 @@ p {
   font-size: 8pt;
   text-align: left;
 }
-.hashFoto {
+.hashFotoLeft {
   font-family: Arial, sans-serif;
-  font-size: 9pt;
+  font-size: 9.5pt;
+  text-align: left;
+}
+
+.hashFotoCenter {
+  font-family: Arial, sans-serif;
+  font-size: 9.5pt;
   text-align: center;
+}
+
+.hashFotoRight {
+  font-family: Arial, sans-serif;
+  font-size: 9.5pt;
+  text-align: right;
 }
 
 .foto {
