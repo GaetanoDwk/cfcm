@@ -84,9 +84,9 @@ Infine vi sono alcune configurazioni da effettuare tra cui:
 <h2>Bugs</h2>
 <p>Per segnalare bug o malfunzionamenti contattatemi su <a href="https://www.linkedin.com/in/gaetano-riello-93b74564/">Linkedin</a></p>
 
-<h2>Donazioni</h2>
+<!--h2>Donazioni</h2>
 <p>
   Se CFCM ti è stato utile e vuoi offrirmi un caffè puoi farlo seguendo il link qui sotto: <br> 
   <a href="https://www.paypal.com/donate?hosted_button_id=7D5ZJXRNCYUJC" target="_blank">Donazione PayPal</a>
-</p>
+</p-->
 
